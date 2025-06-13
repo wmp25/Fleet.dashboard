@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: fleet-backend
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn app:app"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9
+    plan: free
+    rootDir: backend
+
+  - type: static
+    name: fleet-frontend
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: build
+    rootDir: frontend
+    plan: free
